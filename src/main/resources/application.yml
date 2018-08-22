@@ -1,7 +1,7 @@
 #mysql
 spring:
       datasource:
-        type: com.alibaba.druid.pool.DruidDataSource com.mysql.jdbc.Driver
+        type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/tc?useUnicode=true&characterEncoding=UTF-8&&useSSL=true
         username: root
@@ -17,9 +17,7 @@ logging:
     org:
       hibernate:
         SQL:DEBUG
-        type:
-          descriptor:
-            sql:TRACE
+
 
 
 

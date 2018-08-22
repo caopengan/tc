@@ -1,9 +1,9 @@
 package com.simba.spider.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
 import com.simba.spider.common.HttpClientUtils;
 import com.simba.spider.entity.GoodsInfo;
 import com.simba.spider.repository.GoodsInfoRepository;
@@ -15,11 +15,11 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SpiderService {
     private static Logger logger = LoggerFactory.getLogger(SpiderService.class);
     private static String HTTPS_PROTOCOL = "https:";
@@ -30,6 +30,11 @@ public class SpiderService {
         String html = HttpClientUtils.sendGet(url, null, params);
         if(!StringUtils.isBlank(html)) {
             List<GoodsInfo> goodsInfos =parseHtml(html);
+            for(GoodsInfo gi:goodsInfos){
+                System.out.println("-----------"+gi);
+                goodsInfoRepository.save(gi);
+//                goodsInfoRepository.insertJDGoods(gi.getGoodsId(),gi.getGoodsName(),gi.getImgUrl(),gi.getGoodsPrice());
+            }
 //            goodsInfoDao.saveBatch(goodsInfos);
         }
     }
@@ -52,8 +57,8 @@ public class SpiderService {
             String goodsId = element.attr("data-sku");
             String goodsName = element.select("div[class=p-name p-name-type-2]").select("em").text();
             String goodsPrice = element.select("div[class=p-price]").select("strong").select("i").text();
-            String imgUrl = HTTPS_PROTOCOL + element.select("div[class=p-img]").select("a").select("img").attr("src");
-            GoodsInfo goodsInfo = new GoodsInfo(goodsId, goodsName, imgUrl, goodsPrice);
+            String imgUrl = HTTPS_PROTOCOL + element.select("div[class=p-img]").select("a").select("img").attr("source-data-lazy-img");
+            GoodsInfo goodsInfo = new GoodsInfo(goodsId, goodsName, imgUrl, Double.parseDouble(goodsPrice));
             goods.add(goodsInfo);
             String jsonStr = JSON.toJSONString(goodsInfo);
             logger.info("成功爬取【" + goodsName + "】的基本信息 ");
