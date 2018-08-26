@@ -1,6 +1,7 @@
 package com.simba.imageSearch.controller;
 
 import com.simba.imageSearch.service.ImageSearchService;
+import com.simba.imageSearch.utils.ASR;
 import com.simba.imageSearch.utils.FingerPrint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -46,5 +47,12 @@ public class ImageSearchController {
 //        FingerPrint fp2 =new FingerPrint(ImageIO.read(new File("E:\\5ace10f7N1aad7299.jpg")));
 //        System.out.println(fp1.toString(true));
         System.out.printf("sim=%f",fp1.compare(fp2));
+    }
+
+
+    @RequestMapping("/asr")
+    public void asr()throws IOException {
+        ASR asr = new ASR();
+
     }
 }
