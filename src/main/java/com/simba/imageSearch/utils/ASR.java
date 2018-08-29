@@ -29,7 +29,7 @@ public class ASR {
 //        System.setProperty("aip.log4j.conf", "path/to/your/log4j.properties");
 
 
-        String path = "D:\\code\\java-sdk\\speech_sdk\\src\\test\\resources\\16k_test.pcm";
+        String path = "E:\\firefox download\\16k.pcm";
         JSONObject asrRes = client.asr(path, "pcm", 16000, null);
         System.out.println(asrRes);
 

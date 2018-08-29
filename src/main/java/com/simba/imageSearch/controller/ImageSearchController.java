@@ -53,6 +53,10 @@ public class ImageSearchController {
     @RequestMapping("/asr")
     public void asr()throws IOException {
         ASR asr = new ASR();
-
+        try {
+            asr.asr();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
