@@ -1,4 +1,4 @@
-package com.simba.redis.common.util;
+package com.simba.redis.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
