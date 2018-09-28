@@ -19,7 +19,8 @@ public class SpiderHandler {
 
     @Autowired
     private SpiderService spiderService;
-    private static final Logger logger = LoggerFactory.getLogger(SpiderHandler.class);public void spiderData() {
+    private static final Logger logger = LoggerFactory.getLogger(SpiderHandler.class);
+    public void spiderData() {
         logger.info("爬虫开始....");
         Date startDate = new Date();
         // 使用现线程池提交任务
@@ -28,12 +29,13 @@ public class SpiderHandler {
         CountDownLatch countDownLatch = new CountDownLatch(100);
         for(int i = 1; i < 201; i += 2) {
             Map<String, String> params = Maps.newHashMap();
-            params.put("keyword", "零食");
+            params.put("keyword", "衣服");
             params.put("enc", "utf-8");
-            params.put("wc", "零食");
+            params.put("wc", "衣服");
             params.put("page", i + "");
             executorService.submit(() -> {
-                spiderService.spiderData(SysConstant.BASE_URL, params);
+//                spiderService.spiderData(SysConstant.BASE_URL, params);
+                spiderService.spiderJDData(SysConstant.BASE_URL, params);
                 countDownLatch.countDown();
             });
         }

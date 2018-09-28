@@ -17,8 +17,6 @@ import javax.annotation.PostConstruct;
 @EntityScan(basePackages="com.simba.*")
 public class TcApplication {
 
-	@Autowired
-	private SpiderHandler spiderHandler;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TcApplication.class, args);

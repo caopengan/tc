@@ -5,11 +5,15 @@ import com.simba.auth.service.UserService;
 import com.simba.common.util.UtilDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class UserControoler {
@@ -30,5 +34,13 @@ public class UserControoler {
         user.setUpdateDateTime(now);
         return userService.addUser(user);
     }
+
+    @PostMapping("/login")
+    public ModelAndView login(){
+        Map<String,Object> model = new HashMap<String,Object>();
+
+        return new ModelAndView("");
+    }
+
 
 }
