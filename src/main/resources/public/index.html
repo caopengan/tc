@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="css/ele.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div>
+        <div class="head">
+            <div class="w">
+                <ul class="fr">
+                    <li>你好，请登录</li>
+                    <li>我的订单</li>
+                </ul>
+            </div>
+        </div>
+        <div class="main">
+            <div class="p_list" id="p_list">
+                <ul v-if="product_list.length > 0">
+                    <li v-for="product in product_list" class="p-item">
+                        <a :title="product.productName">
+                            <img v-lazy="product.productMainImage">
+                        </a>
+                        <div>{{product.productPrice}}</div>
+                        <div>{{product.productName}}</div>
+                    </li>
+                </ul>
+                <div style="height: 100px;margin: 20px;">
+                    <el-pagination
+                            background
+                            layout="prev, pager, next"
+                            :total="1000">
+                    </el-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/ele.js"></script>
+<script type="text/javascript" src="js/axios.min.js"></script>
+<script type="text/javascript" src="js/vue-lazyload.js"></script>
+<script>
+    var p_list = new Vue({
+        el: '#p_list',
+        data: {
+            product_list: []
+        },
+        created:function () {
+//            this.openFullScreen();
+            axios.get("http://localhost:8080/getProductPage",
+                        {params:
+                                {
+                                    page:1,
+                                    pageSize:60
+                                }
+            }).then(function (response) {
+                console.log(JSON.stringify((response)));
+                p_list.product_list = response.data.productList;
+            }).catch(function (error) {
+
+            }).then(function () {
+
+            })
+        },
+        methods:{
+            openFullScreen:function () {
+                const loading = this.$loading({
+                    lock: true,
+                    text: 'Loading',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.7)'
+                });
+                setTimeout(function () {
+                    loading.close();
+                } , 2000);
+            }
+        }
+    })
+    //图片懒加载
+    Vue.use(VueLazyload, {
+        preLoad: 1.3,
+        error: 'images/p-error.png',
+        loading: 'images/p-loading.gif',
+        attempt: 1,
+        // the default is ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend']
+        listenEvents: [ 'scroll' ]
+    })
+</script>
+</html>

@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
+    <link rel="stylesheet" href="/static/ele.css">
 </head>
 <body>
+    <div>
+        <div class="head">
+            <div>我的</div>
+        </div>
+        <div class="main">
+            <div class="p_list" id="p_list">
 
+            </div>
+        </div>
+    </div>
 </body>
+<script type="text/javascript" src="/static/js/vue.js"></script>
+<script type="text/javascript" src="/static/js/ele.js"></script>
+<script type="text/javascript" src="/static/js/axios.min.js"></script>
+<script>
+    var p_list = new Vue({
+        el: '#p_list',
+        data: {
+            product_list: []
+        },
+        created:function () {
+            this.axios({
+                url:"http://localhost:8080/getAllProduct",
+                data:{},
+
+            }).then(function (response) {
+                console.log(JSON.stringify((response)));
+            }).catch(function (error) {
+
+            }).then(function () {
+
+            })
+        }
+    })
+</script>
 </html>
