@@ -34,7 +34,8 @@ public class ProductService {
         Pageable page = PageRequest.of(Integer.parseInt(params.get("currentPage").toString()),Integer.parseInt(params.get("pageSize").toString()));
         Page<Product> p = productRepository.findAll(page);
         result.put("productList",p.getContent());
-        result.put("total",p.getTotalPages());
+        result.put("totalPage",p.getTotalPages());
+        result.put("productTotal",p.getTotalElements());
         return result;
     }
 

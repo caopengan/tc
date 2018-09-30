@@ -5,6 +5,7 @@
     <title>首页</title>
     <link rel="stylesheet" href="css/ele.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
 </head>
 <body>
     <div>
@@ -17,21 +18,35 @@
             </div>
         </div>
         <div class="main">
+            <div class="p_search">
+                <div class="form">
+                    <input type="text" placeholder="请输入内容" class="input-with-select" />
+                    <button>搜索</button>
+                </div>
+            </div>
             <div class="p_list" id="p_list">
-                <ul v-if="product_list.length > 0">
-                    <li v-for="product in product_list" class="p-item">
-                        <a :title="product.productName">
-                            <img v-lazy="product.productMainImage">
-                        </a>
-                        <div>{{product.productPrice}}</div>
-                        <div>{{product.productName}}</div>
-                    </li>
-                </ul>
+                <div v-if="product_list.length > 0">
+                    <ul class="clearfix">
+                        <li v-for="product in product_list" class="p-item">
+                            <a :title="product.productName">
+                                <img v-lazy="product.productMainImage" :key="product.productMainImage">
+                            </a>
+                            <div>{{product.productPrice}}</div>
+                            <div>{{product.productName}}</div>
+                        </li>
+                    </ul>
+                </div>
                 <div style="height: 100px;margin: 20px;">
                     <el-pagination
+                            @current-change="plistHandleCurrentChange"
                             background
+                            prev-text="上一页"
+                            next-text="下一页"
                             layout="prev, pager, next"
-                            :total="1000">
+                            :page-size="page_size"
+                            :total="product_total"
+                            :page-count="p_total_page"
+                            :current-page="p_curr_page">
                     </el-pagination>
                 </div>
             </div>
@@ -43,29 +58,39 @@
 <script type="text/javascript" src="js/axios.min.js"></script>
 <script type="text/javascript" src="js/vue-lazyload.js"></script>
 <script>
-    var p_list = new Vue({
+    var p_list_app = new Vue({
         el: '#p_list',
         data: {
-            product_list: []
+            product_list: [],
+            page_size:60,
+            product_total:0,
+            p_total_page:0,
+            p_curr_page:1
         },
         created:function () {
 //            this.openFullScreen();
-            axios.get("http://localhost:8080/getProductPage",
-                        {params:
-                                {
-                                    page:1,
-                                    pageSize:60
-                                }
-            }).then(function (response) {
-                console.log(JSON.stringify((response)));
-                p_list.product_list = response.data.productList;
-            }).catch(function (error) {
-
-            }).then(function () {
-
-            })
+            this.getProductList();
         },
         methods:{
+            getProductList:function () {
+                var that = this;
+                axios.get("http://localhost:8080/getProductPage",
+                    {params:
+                        {
+                            page:that.p_curr_page,
+                            pageSize:that.page_size
+                        }
+                    }).then(function (response) {
+                    console.log(JSON.stringify((response)));
+                    p_list_app.product_list = response.data.productList;
+                    p_list_app.product_total = response.data.productTotal;
+                    p_list_app.p_total_page = response.data.totalPage;
+                }).catch(function (error) {
+
+                }).then(function () {
+
+                })
+            },
             openFullScreen:function () {
                 const loading = this.$loading({
                     lock: true,
@@ -76,6 +101,10 @@
                 setTimeout(function () {
                     loading.close();
                 } , 2000);
+            },
+            plistHandleCurrentChange:function (val) {
+                this.p_curr_page = val;
+                this.getProductList();
             }
         }
     })

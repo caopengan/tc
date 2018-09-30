@@ -21,9 +21,35 @@ body{
 li{list-style: none;}
 
 .p-item{
+    height:400px;
     width: 240px;
     float: left;
     position: relative;
     z-index: 1;
     margin-top: 10px;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+.clearfix:after {
+    clear: both;
+}
+
+.p_search{
+    margin: 27px 30px 0 95px;
+}
+
+.p_search .form{height: 40px;}
+
+.el-select .el-input {
+    width: 130px;
+}
+.input-with-select .el-input-group__prepend {
+    background-color: #fff;
 }
