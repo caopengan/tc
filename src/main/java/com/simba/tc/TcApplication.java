@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import javax.annotation.PostConstruct;
 @ComponentScan(basePackages="com.simba.*")//指定要扫描的包
 @EnableJpaRepositories(basePackages="com.simba.*")
 @EntityScan(basePackages="com.simba.*")
+@EnableElasticsearchRepositories(basePackages = "com.simba.es.*")
 public class TcApplication {
 
 

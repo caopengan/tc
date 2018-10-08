@@ -43,6 +43,7 @@ li{list-style: none;}
 
 .p_search{
     margin: 27px 30px 0 95px;
+    text-align: center;
 }
 
 .p_search .form{height: 40px;}
@@ -52,4 +53,33 @@ li{list-style: none;}
 }
 .input-with-select .el-input-group__prepend {
     background-color: #fff;
+}
+
+.input-with-select{
+    float: left;
+    width: 294px;
+    height: 24px;
+    line-height: 24px;
+    color: #999;
+    padding: 4px;
+    padding-right: 4px;
+    margin-bottom: 4px;
+    border-width: 2px 0 2px 2px;
+    border-color: #f30213;
+    border-style: solid;
+    outline: 0;
+    font-size: 12px;
+}
+.search-btn{
+    float: left;
+    width: 80px;
+    height: 36px;
+    font-family: tahoma,arial,Microsoft YaHei,Hiragino Sans GB,"\u5b8b\u4f53",sans-serif;
+    background: #f30213;
+    border: none;
+    border-radius: 0;
+    line-height: 1;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
 }
