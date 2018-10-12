@@ -1,5 +1,12 @@
 #mysql
 spring:
+
+      data:
+        elasticsearch:
+          repositories:
+            enabled: true
+          cluster-nodes: 127.0.0.1:9300
+
       datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
@@ -28,14 +35,6 @@ spring:
           pool:
             max-idle: 8
         timeout: 5000
-
-      data:
-        elasticsearch:
-          repositories:
-            enabled: true
-          cluster-name: elasticsearch
-          cluster-nodes: 127.0.0.1:9300
-
 
 
 logging:
